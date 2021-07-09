@@ -8,4 +8,11 @@ class Skill{
     }
     return dmg;
   }
+
+  num getActive(num dmg, Skill skill) {
+    if (skill._type == "slash"){
+      dmg = dmg + 2;
+    }
+    return dmg;
+  }
 }

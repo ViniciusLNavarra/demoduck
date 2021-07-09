@@ -13,11 +13,11 @@ class Character{
   late int _multiplier;
   late Skill _skill;
 
-  Character(this.name, this.element, this.hp, this.sp) {
+  Character(this.name, this.element, this.hp, this.sp, skill) {
     this._maxHp = hp;
     this._maxSp = sp;
     this._multiplier=Element().getMultiplier(element);
-    _skill=new Skill("harden"/**TODO skill*/);
+    _skill=new Skill(skill);
     _atk = Weapon().getWpnDmg(name)*Element().getBuff(element);
   }
 
@@ -47,8 +47,15 @@ class Character{
   }
 
   num passiveSkill(num dmg, Character opponent) {
-    if(_skill.type=="passive atk"){
-      dmg = _skill.getPassive(dmg, _skill);
+    if (opponent._skill.type=="harden") {
+      dmg = opponent._skill.getPassive(dmg, opponent._skill);
+    }
+    return dmg;
+  }
+
+  num activeSkill(num dmg, Character opponent) {
+    if(_skill.type=="slash"){
+      dmg = _skill.getActive(dmg, _skill);
     }
     if (opponent._skill.type=="harden") {
       dmg = opponent._skill.getPassive(dmg, opponent._skill);

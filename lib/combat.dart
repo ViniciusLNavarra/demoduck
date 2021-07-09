@@ -12,8 +12,8 @@ class Combat {
   late Character enemy;
   
   Combat(){
-    player=Character("Duck", "Aeteher", 13, 10);
-    enemy=Character("Enemy", "Fire", 10, 10);
+    player=Character("Duck", "Aeteher", 13, 10, "slash");
+    enemy=Character("Enemy", "Fire", 10, 10, "harden");
   }
 
   bool escape(){
@@ -43,7 +43,6 @@ class Combat {
     } else {
       probability = 0.65*pow(player.hp / enemy.hp, 7)+0.1;
     }
-    print(probability);
     if (probability< Random().nextDouble()){
       enemyTurn();
       return false;
@@ -54,22 +53,18 @@ class Combat {
   }
 
   void skill(Character attacker, Character opponent) {
-    if (attacker.getSkill().type == 'harden'){
-      print('is passive');
-    } else{
-      print(skill);
+    num dmg = attacker.getAtk()*attacker.getMultiplier();
+    dmg = attacker.activeSkill(dmg, opponent);
+    opponent.setHp(opponent.hp-dmg.toInt());
+    if (dmg > 0 && opponent.name==player.name){
+      Vibration.vibrate(duration: 100, amplitude:100);
     }
   }
 
   void attack(Character attacker, Character opponent) async {
     num dmg = attacker.getAtk()*attacker.getMultiplier();
-    print(dmg);
     dmg = attacker.passiveSkill(dmg, opponent);
-    print(dmg);
     opponent.setHp(opponent.hp-dmg.toInt());
-    if(attacker.name==player.name){
-
-    }
     if (dmg > 0 && opponent.name==player.name){
       Vibration.vibrate(duration: 100, amplitude:100);
     }
