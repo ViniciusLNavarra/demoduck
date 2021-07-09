@@ -12,7 +12,7 @@ class Combat {
   late Character enemy;
   
   Combat(){
-    player=Character("Duck", "Aeteher", 20, 10);
+    player=Character("Duck", "Aeteher", 13, 10);
     enemy=Character("Enemy", "Fire", 10, 10);
   }
 
@@ -43,6 +43,7 @@ class Combat {
     } else {
       probability = 0.65*pow(player.hp / enemy.hp, 7)+0.1;
     }
+    print(probability);
     if (probability< Random().nextDouble()){
       enemyTurn();
       return false;
