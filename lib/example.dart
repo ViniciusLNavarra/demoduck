@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 ///Creates a Timer
 ///Keep as foundation on how it works
-
 class ExampleGameEngine extends GameEngine{
 
   @override
@@ -27,19 +26,19 @@ class ExampleGameView extends GameView{
   Widget getEndPage(BuildContext context) {
     GameEngine engine = Provider.of<GameEngine>(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-              onPressed: () => {engine.gameState = GameState.running},
-              child: Text('Replay')
-          ),
-          ElevatedButton(
-              onPressed: () => {engine.gameState = GameState.start},
-              child: Text('Back to Start')
-          )
-        ]
-      )
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () => {engine.gameState = GameState.running},
+                  child: Text('Replay')
+              ),
+              ElevatedButton(
+                  onPressed: () => {engine.gameState = GameState.start},
+                  child: Text('Back to Start')
+              )
+            ]
+        )
     );
   }
 
@@ -47,22 +46,22 @@ class ExampleGameView extends GameView{
   Widget getRunPage(BuildContext context) {
     GameEngine engine = Provider.of<GameEngine>(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(2.5),
-            child: Text(
-              'Elapsed time: ${NumberFormat("###.#", "en_US").format(engine.tickCount/500)}',
-              textScaleFactor: 2
-            )
-          ),
-          ElevatedButton(
-              onPressed: () => {engine.gameState = GameState.end},
-              child: Text('End')
-          )
-        ]
-      )
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: EdgeInsets.all(2.5),
+                  child: Text(
+                      'Elapsed time: ${NumberFormat("###.#", "en_US").format(engine.tickCount/500)}',
+                      textScaleFactor: 2
+                  )
+              ),
+              ElevatedButton(
+                  onPressed: () => {engine.gameState = GameState.end},
+                  child: Text('End')
+              )
+            ]
+        )
     );
   }
 
@@ -70,10 +69,10 @@ class ExampleGameView extends GameView{
   Widget getStartPage(BuildContext context) {
     GameEngine engine = Provider.of<GameEngine>(context);
     return Center(
-      child: ElevatedButton(
-        onPressed: () => {engine.gameState = GameState.running},
-        child: Text('Start')
-      )
+        child: ElevatedButton(
+            onPressed: () => {engine.gameState = GameState.running},
+            child: Text('Start')
+        )
     );
   }
 }

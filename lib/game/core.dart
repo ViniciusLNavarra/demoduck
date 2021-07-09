@@ -32,10 +32,9 @@ abstract class GameView extends StatelessWidget{
   Widget build(BuildContext context){
     GameEngine game = Provider.of<GameEngine>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title)
-      ),
-      body: _getGamePages(context, game)
+      body: SafeArea(
+          child: _getGamePages(context, game)
+      )
     );
   }
 }
