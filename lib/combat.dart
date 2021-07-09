@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:demoduck/character.dart';
 import 'package:demoduck/enums.dart';
+import 'package:demoduck/rpg.dart';
+import 'package:vibration/vibration.dart';
 
 
 class Combat {
@@ -57,12 +60,18 @@ class Combat {
     }
   }
 
-  void attack(Character attacker, Character opponent) {
+  void attack(Character attacker, Character opponent) async {
     num dmg = attacker.getAtk()*attacker.getMultiplier();
     print(dmg);
     dmg = attacker.passiveSkill(dmg, opponent);
     print(dmg);
     opponent.setHp(opponent.hp-dmg.toInt());
+    if(attacker.name==player.name){
+
+    }
+    if (dmg > 0 && opponent.name==player.name){
+      Vibration.vibrate(duration: 100, amplitude:100);
+    }
   }
 
   void turn(Character actor, Character opponent, Txt action){

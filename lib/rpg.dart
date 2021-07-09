@@ -35,6 +35,8 @@ class RpgGameView extends GameView{
     player = combat.player;
   }
 
+  double get y => _y;
+
   Color getBtnColor(Set<MaterialState> states){
     const Set<MaterialState> active = <MaterialState>{
       MaterialState.pressed,
@@ -138,10 +140,6 @@ class RpgGameView extends GameView{
             )
           )
         ),
-        FloatingActionButton(onPressed: () => {
-          _y += 20,
-          Timer(Duration(milliseconds: 200), () => {_y=0})
-        }),
         Positioned(
           top: duckHeight,
           left: duckLeft,
@@ -185,6 +183,8 @@ class RpgGameView extends GameView{
                             ),
                             onPressed: () => {
                               combat.turn(player, enemy, Txt.attack),
+                              _y -= 20,
+                              Timer(Duration(milliseconds: 200), () => {_y=0}),
                               if(player.hp==0||enemy.hp==0){
                                 engine.gameState=GameState.end
                               }
@@ -213,6 +213,8 @@ class RpgGameView extends GameView{
                             ),
                             onPressed: () => {
                               combat.turn(player, enemy, Txt.skill),
+                              _y -= 20,
+                              Timer(Duration(milliseconds: 200), () => {_y=0}),
                               if(player.hp==0||enemy.hp==0){
                                 engine.gameState=GameState.end
                               }
@@ -240,8 +242,13 @@ class RpgGameView extends GameView{
                                 overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromRGBO(255, 255, 255, 0.2))
                             ),
                             onPressed: () => {
+                              _y -= 20,
+                              Timer(Duration(milliseconds: 200), () => {_y=0}),
                               if(combat.capture()){
                                 endTxt="Enemy captured",
+                                engine.gameState=GameState.end
+                              },
+                              if(player.hp==0||enemy.hp==0){
                                 engine.gameState=GameState.end
                               }
                             },
@@ -272,7 +279,11 @@ class RpgGameView extends GameView{
                             {
                               if(combat.escape()){
                                 endTxt="You ran away",
-                                engine.gameState = GameState.end}
+                                engine.gameState = GameState.end
+                              },
+                              if(player.hp==0||enemy.hp==0){
+                                engine.gameState=GameState.end
+                              }
                             },
                             child: getTxt(Txt.escape)
                           )
